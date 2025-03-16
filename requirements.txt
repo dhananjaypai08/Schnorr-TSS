@@ -1,0 +1,4 @@
+ecdsa==0.19.1
+pycryptodome==3.22.0
+python-dotenv==1.0.1
+six==1.17.0
