@@ -20,8 +20,8 @@ hex_private_keys = [
 private_keys = [int(pk, 16) for pk in hex_private_keys]
 def get_public_key(private_key):
     """Computes the public key from a given private key."""
-    G = secp256k1.G  # Generator point
-    return private_key * G  # Scalar multiplication
+    G = secp256k1.G 
+    return private_key * G 
 public_keys = [get_public_key(pk) for pk in private_keys]
 
 print("Private Keys:", private_keys)
@@ -35,7 +35,7 @@ def aggregate_public_keys(public_keys):
         if agg_pub_key is None:
             agg_pub_key = pub_key
         else:
-            agg_pub_key += pub_key  # Elliptic curve addition
+            agg_pub_key += pub_key
     
     return agg_pub_key
 
@@ -50,16 +50,12 @@ def schnorr_sign(message, private_keys):
     """Schnorr multi-signature process."""
     msg_hash = sha256(message.encode()).digest()
 
-    # Generate random nonces
     nonces = [gen_keypair(secp256k1)[0] for _ in private_keys]
 
-    # Compute nonce public keys
     R_points = [r * secp256k1.G for r in nonces]
 
-    # Aggregate nonce public key
     R_agg = aggregate_public_keys(R_points)
 
-    # Compute challenge e = H(R || P_agg || m)
     challenge_data = point_to_bytes(R_agg) + point_to_bytes(agg_pub_key) + msg_hash
     e = int.from_bytes(sha256(challenge_data).digest(), "big") % secp256k1.q
 
