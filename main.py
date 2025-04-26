@@ -1,13 +1,7 @@
-import hashlib
-import random
-import coincurve
 from fastecdsa.keys import gen_keypair
-from ecdsa.util import sigencode_der, sigdecode_der
 from hashlib import sha256
 from fastecdsa.curve import secp256k1
-from fastecdsa.point import Point
 from dotenv import load_dotenv
-from eth_keys import keys
 import os
 
 load_dotenv()
